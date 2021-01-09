@@ -12,6 +12,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "JadeLookAndFeel.h"
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 //==============================================================================
@@ -28,6 +29,8 @@ public:
     void resized() override;
 
 private:
+    JadeLookAndFeel m_jadeLAF;
+
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     FilarborAudioProcessor& m_processor;
@@ -52,5 +55,7 @@ private:
     std::unique_ptr<SliderAttachment> m_orderHpAttachment;
 
     void sliderValueChanged(Slider* slider) override;
+ 
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilarborAudioProcessorEditor)
 };

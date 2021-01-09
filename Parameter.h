@@ -10,7 +10,7 @@ const struct
 	std::string unitName = "Hz";
 	float minValue = log(100.f);
 	float maxValue = log(15000.f);
-	float defaultValue = log(1000.f);
+	float defaultValue = log(300.f);
 }paramLpCutoff;
 
 const struct
@@ -20,7 +20,7 @@ const struct
 	std::string unitName = "";
 	float minValue = 0.0f;
 	float maxValue = 2.3f;
-	float defaultValue = 0.5f;
+	float defaultValue = 1.0f;
 }paramLpOrder;
 
 // Highpass
@@ -31,7 +31,7 @@ const struct
 	std::string unitName = "Hz";
 	float minValue = log(100.f);
 	float maxValue = log(15000.f);
-	float defaultValue = log(1000.f);
+	float defaultValue = log(100.f);
 }paramHpCutoff;
 
 const struct
@@ -41,5 +41,5 @@ const struct
 	std::string unitName = "";
 	float minValue = 0.0f;
 	float maxValue = 2.3f;
-	float defaultValue = 0.5f;
+	float defaultValue = 0.9f;
 }paramHpOrder;

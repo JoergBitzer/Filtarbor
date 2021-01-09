@@ -18,46 +18,55 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (500, 120);
 
     // Lowpass
-    m_cutoffLpLabel.setText(paramLpCutoff.name, dontSendNotification);
+    m_cutoffLpLabel.setText("Lowpass", dontSendNotification);
+    m_cutoffLpLabel.setFont(Font("Arial", 30.0, Font::plain));
     addAndMakeVisible(m_cutoffLpLabel);
 
-    m_orderLpLabel.setText(paramLpOrder.name, dontSendNotification);
-    addAndMakeVisible(m_orderLpLabel);
+    //m_orderLpLabel.setText(paramLpOrder.name, dontSendNotification);
+    //addAndMakeVisible(m_orderLpLabel);
     
     m_cutoffLpSlider.setComponentID(paramLpCutoff.ID);
     m_cutoffLpSlider.addListener(this);
+    m_cutoffLpSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxAbove, true, 50, 20);
     m_cutoffLpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramLpCutoff.ID, m_cutoffLpSlider);
     addAndMakeVisible(m_cutoffLpSlider);
     m_cutoffLpSlider.setValue(paramLpCutoff.defaultValue);
 
     m_orderLpSlider.setComponentID(paramLpOrder.ID);
     m_orderLpSlider.addListener(this);
+    m_orderLpSlider.setSliderStyle(Slider::SliderStyle::Rotary);
+    m_orderLpSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, true, 50, 20);
     m_orderLpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramLpOrder.ID, m_orderLpSlider);
+    
     addAndMakeVisible(m_orderLpSlider);
     m_orderLpSlider.setValue(paramLpOrder.defaultValue);
 
     // Highpass
-    m_cutoffHpLabel.setText(paramHpCutoff.name, dontSendNotification);
+    m_cutoffHpLabel.setText("Highpass", dontSendNotification);
+    m_cutoffHpLabel.setFont(Font("Arial", 30.0, Font::plain));
     addAndMakeVisible(m_cutoffHpLabel);
 
-    m_orderHpLabel.setText(paramHpOrder.name, dontSendNotification);
-    addAndMakeVisible(m_orderHpLabel);
-
+ 
     m_cutoffHpSlider.setComponentID(paramHpCutoff.ID);
     m_cutoffHpSlider.addListener(this);
     m_cutoffHpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramHpCutoff.ID, m_cutoffHpSlider);
-    addAndMakeVisible(m_cutoffHpSlider);
+    m_cutoffHpSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 20);
     m_cutoffHpSlider.setValue(paramHpCutoff.defaultValue);
-
+    addAndMakeVisible(m_cutoffHpSlider);
+  
+ 
     m_orderHpSlider.setComponentID(paramHpOrder.ID);
     m_orderHpSlider.addListener(this);
+    m_orderHpSlider.setSliderStyle(Slider::SliderStyle::Rotary);
+    m_orderHpSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 50, 20);
+    m_orderHpSlider.setValue(paramHpOrder.defaultValue);
     m_orderHpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramHpOrder.ID, m_orderHpSlider);
     addAndMakeVisible(m_orderHpSlider);
-    m_orderHpSlider.setValue(paramHpOrder.defaultValue);
-}
+    //*/
+    }
 
 FilarborAudioProcessorEditor::~FilarborAudioProcessorEditor()
 {
@@ -67,13 +76,13 @@ FilarborAudioProcessorEditor::~FilarborAudioProcessorEditor()
 void FilarborAudioProcessorEditor::paint (Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (Colour::fromFloatRGBA(0.25, 0.25, 0.25, 1.0));
-
-
+    g.fillAll (getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 }
 
-#define GUI_HEIGHT_ELEMENT 20
+#define GUI_HEIGHT_ELEMENT 50
 #define GUI_LABEL_WIDTH 100
+#define GUI_LABEL_HEIGHT 30
+#define GUI_ELEMENT_DISTANCE 60
 
 void FilarborAudioProcessorEditor::resized()
 {
@@ -81,29 +90,26 @@ void FilarborAudioProcessorEditor::resized()
     // subcomponents in your editor..
 
     auto r = getLocalBounds();
-    r.removeFromTop(GUI_HEIGHT_ELEMENT);
     auto lowpassRect = r;
-    lowpassRect.setHeight(GUI_HEIGHT_ELEMENT);
-    m_cutoffLpLabel.setBounds(lowpassRect.removeFromLeft(GUI_LABEL_WIDTH));
-    m_cutoffLpSlider.setBounds(lowpassRect);
+    m_cutoffLpLabel.setBounds(lowpassRect.removeFromLeft(GUI_LABEL_WIDTH).removeFromTop(GUI_LABEL_HEIGHT));
+    lowpassRect.setWidth(r.getWidth() - 2 * GUI_LABEL_WIDTH - GUI_ELEMENT_DISTANCE);
+    m_cutoffLpSlider.setBounds(lowpassRect.removeFromTop(GUI_HEIGHT_ELEMENT));
     
-    r.removeFromTop(GUI_HEIGHT_ELEMENT);
     auto orderLpRect = r;
-    orderLpRect.setHeight(GUI_HEIGHT_ELEMENT);
-    m_orderLpLabel.setBounds(orderLpRect.removeFromLeft(GUI_LABEL_WIDTH));
-    m_orderLpSlider.setBounds(orderLpRect);
-    
-    r.removeFromTop(2*GUI_HEIGHT_ELEMENT);
-    auto highpassRect = r;
-    highpassRect.setHeight(GUI_HEIGHT_ELEMENT);
-    m_cutoffHpLabel.setBounds(highpassRect.removeFromLeft(GUI_LABEL_WIDTH));
-    m_cutoffHpSlider.setBounds(highpassRect);
-    
-    r.removeFromTop(GUI_HEIGHT_ELEMENT);
+    m_orderLpSlider.setBounds(orderLpRect.removeFromLeft(GUI_LABEL_WIDTH).removeFromBottom(GUI_LABEL_WIDTH));
+ 
+    auto highPassRect = r;
+    m_cutoffHpLabel.setBounds(highPassRect.removeFromRight(GUI_LABEL_WIDTH).removeFromTop(GUI_LABEL_HEIGHT));
+
+    highPassRect = r;
+    highPassRect.removeFromLeft(GUI_LABEL_WIDTH + GUI_ELEMENT_DISTANCE);
+    highPassRect.setWidth(r.getWidth() - 2 * GUI_LABEL_WIDTH - GUI_ELEMENT_DISTANCE);
+    m_cutoffHpSlider.setBounds(highPassRect.removeFromBottom(GUI_HEIGHT_ELEMENT));
+
     auto orderHpRect = r;
-    orderHpRect.setHeight(GUI_HEIGHT_ELEMENT);
-    m_orderHpLabel.setBounds(orderHpRect.removeFromLeft(GUI_LABEL_WIDTH));
-    m_orderHpSlider.setBounds(orderHpRect);
+    m_orderHpSlider.setBounds(orderHpRect.removeFromRight(GUI_LABEL_WIDTH).removeFromBottom(GUI_LABEL_WIDTH));
+
+    //*/
 }
 
 void FilarborAudioProcessorEditor::sliderValueChanged(Slider* slider)
