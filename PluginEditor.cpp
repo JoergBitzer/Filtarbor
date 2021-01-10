@@ -18,11 +18,17 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (500, 120);
+    setSize (500, 130);
 
     // Lowpass
     m_cutoffLpLabel.setText("Lowpass", dontSendNotification);
-    m_cutoffLpLabel.setFont(Font("Arial", 30.0, Font::plain));
+    Font font;
+    String fontname = font.getDefaultSansSerifFontName();
+    //String fontname = "Book";
+    
+    //m_cutoffLpLabel.setFont(Font("Arial", 30.0, Font::plain));
+    m_cutoffLpLabel.setFont(Font(fontname, 20.0, Font::plain).withPointHeight(20.0));
+    m_cutoffLpLabel.setJustificationType(juce::Justification::topLeft);
     addAndMakeVisible(m_cutoffLpLabel);
 
     //m_orderLpLabel.setText(paramLpOrder.name, dontSendNotification);
@@ -46,7 +52,9 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
 
     // Highpass
     m_cutoffHpLabel.setText("Highpass", dontSendNotification);
-    m_cutoffHpLabel.setFont(Font("Arial", 30.0, Font::plain));
+    //m_cutoffHpLabel.setFont(Font("Arial", 30.0, Font::plain));
+    m_cutoffHpLabel.setFont(Font(fontname, 20.0, Font::plain).withPointHeight(20.0));
+    m_cutoffHpLabel.setJustificationType(juce::Justification::topRight);
     addAndMakeVisible(m_cutoffHpLabel);
 
  
@@ -81,7 +89,7 @@ void FilarborAudioProcessorEditor::paint (Graphics& g)
 
 #define GUI_HEIGHT_ELEMENT 50
 #define GUI_LABEL_WIDTH 100
-#define GUI_LABEL_HEIGHT 30
+#define GUI_LABEL_HEIGHT 40
 #define GUI_ELEMENT_DISTANCE 60
 
 void FilarborAudioProcessorEditor::resized()
