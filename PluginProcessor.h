@@ -82,8 +82,8 @@ public:
 private:
     std::vector<double> m_data;
 
-    int m_filterorder;
-    int m_nrofcoefficients;
+    unsigned int m_filterorder;
+    unsigned int m_nrofcoefficients;
     std::vector<double> m_b;
     std::vector<double> m_a;
     

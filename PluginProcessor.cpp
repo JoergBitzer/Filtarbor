@@ -35,7 +35,7 @@ FilarborAudioProcessor::FilarborAudioProcessor()
     m_cutoffHighpass = exp(paramHpCutoff.defaultValue);
     m_orderHighpass = paramHpOrder.defaultValue;
 
-    m_filterorder = 4.0;
+    m_filterorder = 4;
     m_nrofcoefficients = m_filterorder + 1;
     m_b.resize(m_nrofcoefficients);
     m_a.resize(m_nrofcoefficients);
@@ -253,7 +253,7 @@ void FilarborAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    for (long unsigned int channel = 0; channel < totalNumInputChannels; ++channel)
     {
         auto* channelData = buffer.getWritePointer (channel);
 
