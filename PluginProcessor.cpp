@@ -123,6 +123,10 @@ FilarborAudioProcessor::FilarborAudioProcessor()
 
     m_parameterVTS = std::make_unique<AudioProcessorValueTreeState>(*this, nullptr, Identifier("FiltarborVTS"),
         AudioProcessorValueTreeState::ParameterLayout(m_paramVector.begin(), m_paramVector.end()));
+    
+	m_presets.setAudioValueTreeState(m_parameterVTS.get());
+	m_presets.loadAllUserPresets();
+
 }
 
 FilarborAudioProcessor::~FilarborAudioProcessor()
@@ -291,7 +295,7 @@ bool FilarborAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* FilarborAudioProcessor::createEditor()
 {
-    return new FilarborAudioProcessorEditor (*this, *m_parameterVTS);
+    return new FilarborAudioProcessorEditor (*this, *m_parameterVTS, m_presets);
 }
 
 //==============================================================================
