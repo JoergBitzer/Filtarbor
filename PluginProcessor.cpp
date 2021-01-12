@@ -180,15 +180,19 @@ int FilarborAudioProcessor::getCurrentProgram()
 
 void FilarborAudioProcessor::setCurrentProgram (int index)
 {
+    ignoreUnused(index);
 }
 
 const String FilarborAudioProcessor::getProgramName (int index)
 {
+    ignoreUnused(index);
     return {};
 }
 
 void FilarborAudioProcessor::changeProgramName (int index, const String& newName)
 {
+    ignoreUnused(index);
+    ignoreUnused(newName);
 }
 
 //==============================================================================
@@ -234,6 +238,8 @@ bool FilarborAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 
 void FilarborAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
+    ignoreUnused(midiMessages);
+
     ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
@@ -258,7 +264,7 @@ void FilarborAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
         auto* channelData = buffer.getWritePointer (channel);
 
         // ..do something to the data...
-        for (auto idx = 0; idx < buffer.getNumSamples(); idx++)
+        for (auto idx = 0u; idx < buffer.getNumSamples(); idx++)
         {
             m_data[idx] = channelData[idx];
         }
@@ -270,7 +276,7 @@ void FilarborAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffe
         m_highpassFilter[channel].processDataTV(m_data, m_data);
         m_protect.exit();
 
-        for (auto idx = 0; idx < buffer.getNumSamples(); idx++)
+        for (auto idx = 0u; idx < buffer.getNumSamples(); idx++)
         {
             channelData[idx] = m_data[idx];
         }
@@ -291,6 +297,8 @@ AudioProcessorEditor* FilarborAudioProcessor::createEditor()
 //==============================================================================
 void FilarborAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
+    ignoreUnused(destData);
+
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
@@ -298,6 +306,9 @@ void FilarborAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void FilarborAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    ignoreUnused(data);
+    ignoreUnused(sizeInBytes);
+    
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
@@ -317,7 +328,7 @@ void FilarborAudioProcessor::computeLowpass()
     }
     //Setzen der Koeffizienten in den Filtern
     m_protect.enter();
-    for (auto idx = 0; idx < m_lowpassFilter.size(); idx++)
+    for (auto idx = 0u; idx < m_lowpassFilter.size(); idx++)
     {
         m_lowpassFilter[idx].setCoeffs(m_b, m_a);
     }
@@ -339,7 +350,7 @@ void FilarborAudioProcessor::computeHighpass()
     }
     //Setzen der Koeffizienten in den Filtern
     m_protect.enter();
-    for (auto idx = 0; idx < m_highpassFilter.size(); idx++)
+    for (auto idx = 0u; idx < m_highpassFilter.size(); idx++)
     {
         m_highpassFilter[idx].setCoeffs(m_b, m_a);
     }

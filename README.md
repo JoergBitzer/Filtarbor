@@ -2,7 +2,7 @@
 
 
 # Filtarbor
-A VST/AU Plugin Highpass/Lowpass with arbitrary order (fractonal)
+A VST/AU Plugin Highpass/Lowpass with arbitrary order (fractonal) and no warping at Nyquist == true analog design.
 
 needs the TGMTools library, Eigen Library and JUCE 
 
