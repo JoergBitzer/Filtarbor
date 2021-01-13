@@ -125,7 +125,9 @@ FilarborAudioProcessor::FilarborAudioProcessor()
         AudioProcessorValueTreeState::ParameterLayout(m_paramVector.begin(), m_paramVector.end()));
     
 	m_presets.setAudioValueTreeState(m_parameterVTS.get());
+    m_presets.DeployFactoryPresets();
 	m_presets.loadAllUserPresets();
+
     //m_presets.addCategory("Unknown");
     //m_presets.addCategory("Init");
     //m_presets.addCategory("WhyNot");

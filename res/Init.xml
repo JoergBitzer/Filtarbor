@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FiltarborVTS presetname="Init" category="Unknown" version="0.1.0">
+  <PARAM id="hpcutoff" value="4.605170249938965"/>
+  <PARAM id="hporder" value="0.8999999761581421"/>
+  <PARAM id="lpcutoff" value="5.703782558441162"/>
+  <PARAM id="lporder" value="1.0"/>
+</FiltarborVTS>
