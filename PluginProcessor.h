@@ -15,6 +15,7 @@
 
 #include "FreeOrderLowHighpassFilter.h"
 #include "GeneralIR.h"
+#include "PresetHandler.h"
 
 //==============================================================================
 /**
@@ -104,8 +105,8 @@ private:
 
     //Parameterhandling
     std::unique_ptr<AudioProcessorValueTreeState> m_parameterVTS;
-    std::vector < std::unique_ptr<RangedAudioParameter>> m_paramVector;
-
+    std::vector <std::unique_ptr<RangedAudioParameter>> m_paramVector;
+	PresetHandler m_presets;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilarborAudioProcessor)
 };

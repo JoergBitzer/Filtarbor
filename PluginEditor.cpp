@@ -13,13 +13,16 @@
 #include "Parameter.h"
 
 //==============================================================================
-FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcessor& p, AudioProcessorValueTreeState& vts)
-    : AudioProcessorEditor (&p), m_processor (p), m_paramVTS(vts)
+FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcessor& p, AudioProcessorValueTreeState& vts, PresetHandler &ph)
+    : AudioProcessorEditor (&p), m_processor (p), m_paramVTS(vts), m_presetGUI(ph)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (500, 130);
-
+    setSize (500, 160);
+	
+    //m_presetGUI.setNoCategory();
+	addAndMakeVisible(m_presetGUI);
+    
     // Lowpass
     m_cutoffLpLabel.setText("Lowpass", dontSendNotification);
     Font font;
@@ -39,6 +42,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
     m_cutoffLpSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxAbove, true, 50, 20);
     m_cutoffLpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramLpCutoff.ID, m_cutoffLpSlider);
     addAndMakeVisible(m_cutoffLpSlider);
+   	
     m_cutoffLpSlider.setValue(paramLpCutoff.defaultValue);
 
     m_orderLpSlider.setComponentID(paramLpOrder.ID);
@@ -91,13 +95,14 @@ void FilarborAudioProcessorEditor::paint (Graphics& g)
 #define GUI_LABEL_WIDTH 100
 #define GUI_LABEL_HEIGHT 40
 #define GUI_ELEMENT_DISTANCE 60
-
+#define PRESETHANDLER_HEIGHT 30
 void FilarborAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-
+    m_presetGUI.setBounds(0, 0, getWidth(), PRESETHANDLER_HEIGHT);
     auto r = getLocalBounds();
+    r.removeFromTop(PRESETHANDLER_HEIGHT);    
     auto lowpassRect = r;
     m_cutoffLpLabel.setBounds(lowpassRect.removeFromLeft(GUI_LABEL_WIDTH).removeFromTop(GUI_LABEL_HEIGHT));
     lowpassRect.setWidth(r.getWidth() - 2 * GUI_LABEL_WIDTH - GUI_ELEMENT_DISTANCE);
@@ -122,6 +127,7 @@ void FilarborAudioProcessorEditor::resized()
 
 void FilarborAudioProcessorEditor::sliderValueChanged(Slider* slider)
 {
+    m_presetGUI.setSomethingChanged();
     float value;
     if (slider == &m_cutoffLpSlider)
     {

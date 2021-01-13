@@ -13,6 +13,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "JadeLookAndFeel.h"
+#include "PresetHandler.h"
 typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 //==============================================================================
@@ -21,7 +22,7 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class FilarborAudioProcessorEditor  : public AudioProcessorEditor, private Slider::Listener
 {
 public:
-    FilarborAudioProcessorEditor (FilarborAudioProcessor&, AudioProcessorValueTreeState& );
+    FilarborAudioProcessorEditor (FilarborAudioProcessor&, AudioProcessorValueTreeState&, PresetHandler & );
     ~FilarborAudioProcessorEditor();
 
     //==============================================================================
@@ -56,6 +57,7 @@ private:
 
     void sliderValueChanged(Slider* slider) override;
  
+    PresetComponent m_presetGUI;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FilarborAudioProcessorEditor)
 };
