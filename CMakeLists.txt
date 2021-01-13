@@ -90,6 +90,23 @@ target_compile_definitions(Filtarbor
 # the SOURCES argument should be followed by a list of source files that should be built into the
 # static library. These source files can be of any kind (wav data, images, fonts, icons etc.).
 # Conversion to binary-data will happen when your target is built.
+file(GLOB FILTABOR_RESOURCES_GLOB
+  res/*.xml
+  )
+
+juce_add_binary_data( Filtarbor-binary
+  SOURCES ${FILTABOR_RESOURCES_GLOB}
+)
+if( UNIX AND NOT APPLE )
+set_target_properties(Filtarbor-binary PROPERTIES
+    POSITION_INDEPENDENT_CODE TRUE)
+#if( UNIX AND NOT APPLE )
+#  message( "FPIC Baby" )
+#  target_compile_options( Filtarbor-binary
+#      PRIVATE
+#     -fPIC
+#  )
+endif()
 
 # juce_add_binary_data(AudioPluginData SOURCES ...)
 
@@ -101,6 +118,7 @@ target_compile_definitions(Filtarbor
 
 target_link_libraries(Filtarbor
     PRIVATE
+        Filtarbor-binary
         # AudioPluginData           # If we'd created a binary data target, we'd link to it here
         juce::juce_audio_utils
     PUBLIC
