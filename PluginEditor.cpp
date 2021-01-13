@@ -20,7 +20,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
     // editor's size to whatever you need it to be.
     setSize (500, 160);
 	
-    m_presetGUI.setNoCategory();
+    //m_presetGUI.setNoCategory();
 	addAndMakeVisible(m_presetGUI);
     
     // Lowpass
