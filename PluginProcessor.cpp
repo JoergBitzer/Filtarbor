@@ -49,13 +49,13 @@ FilarborAudioProcessor::FilarborAudioProcessor()
     m_highpassFilter.resize(m_chns);
 
 
-    for (auto idx = 0; idx < m_lowpassFilter.size(); idx++)
+    for (auto idx = 0u; idx < m_lowpassFilter.size(); idx++)
     {
         m_lowpassFilter[idx].setCoeffs(m_b, m_a);
         m_lowpassFilter[idx].setXFadeSamples(100);
     }
 
-    for (auto idx = 0; idx < m_highpassFilter.size(); idx++)
+    for (auto idx = 0u; idx < m_highpassFilter.size(); idx++)
     {
         m_highpassFilter[idx].setXFadeSamples(100);
         m_highpassFilter[idx].setCoeffs(m_b, m_a);
@@ -69,7 +69,7 @@ FilarborAudioProcessor::FilarborAudioProcessor()
         paramLpCutoff.defaultValue,
         paramLpCutoff.unitName,
         AudioProcessorParameter::genericParameter,
-        [](float value, int MaxLen) { value = int(exp(value)*10)*0.1;  return String(value, MaxLen); },
+        [](float value, int MaxLen) { value = int(exp(value)*10)*0.1;  return (String(value, MaxLen) + " Hz"); },
         [](const String& text) {return text.getFloatValue(); }));
 
     m_paramVector.push_back(std::make_unique<AudioParameterFloat>(paramLpOrder.ID,
@@ -80,6 +80,7 @@ FilarborAudioProcessor::FilarborAudioProcessor()
         AudioProcessorParameter::genericParameter,
         [](float value, int MaxLen)
         {
+            value = int(value*100)*0.01;
             if (value >= ORDER_OFF) 
                 return String(value, MaxLen);
             else 
@@ -98,7 +99,7 @@ FilarborAudioProcessor::FilarborAudioProcessor()
         paramHpCutoff.defaultValue,
         paramHpCutoff.unitName,
         AudioProcessorParameter::genericParameter,
-        [](float value, int MaxLen) { value = int(exp(value) * 10) * 0.1;  return String(value, MaxLen); },
+        [](float value, int MaxLen) { value = int(exp(value) * 10) * 0.1;  return (String(value, MaxLen) + " Hz"); },
         [](const String& text) {return text.getFloatValue(); }));
 
     m_paramVector.push_back(std::make_unique<AudioParameterFloat>(paramHpOrder.ID,
@@ -109,6 +110,8 @@ FilarborAudioProcessor::FilarborAudioProcessor()
         AudioProcessorParameter::genericParameter,
         [](float value, int MaxLen)
         {
+            value = int(value*100)*0.01;
+
             if (value >= ORDER_OFF)
                 return String(value, MaxLen);
             else
@@ -126,7 +129,10 @@ FilarborAudioProcessor::FilarborAudioProcessor()
     
 	m_presets.setAudioValueTreeState(m_parameterVTS.get());
     m_presets.DeployFactoryPresets();
-	m_presets.loadAllUserPresets();
+    //m_presets.addCategory(StringArray("Unknown", "Init", "WhyNot", "Init", "Lala"));
+	m_presets.loadfromFileAllUserPresets();
+    // m_presets.addCategory(JadeSynthCategories);
+    
 
     //m_presets.addCategory("Unknown");
     //m_presets.addCategory("Init");
