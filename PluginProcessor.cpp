@@ -49,13 +49,13 @@ FilarborAudioProcessor::FilarborAudioProcessor()
     m_highpassFilter.resize(m_chns);
 
 
-    for (auto idx = 0; idx < m_lowpassFilter.size(); idx++)
+    for (auto idx = 0u; idx < m_lowpassFilter.size(); idx++)
     {
         m_lowpassFilter[idx].setCoeffs(m_b, m_a);
         m_lowpassFilter[idx].setXFadeSamples(100);
     }
 
-    for (auto idx = 0; idx < m_highpassFilter.size(); idx++)
+    for (auto idx = 0u; idx < m_highpassFilter.size(); idx++)
     {
         m_highpassFilter[idx].setXFadeSamples(100);
         m_highpassFilter[idx].setCoeffs(m_b, m_a);
@@ -129,8 +129,8 @@ FilarborAudioProcessor::FilarborAudioProcessor()
     
 	m_presets.setAudioValueTreeState(m_parameterVTS.get());
     m_presets.DeployFactoryPresets();
+    //m_presets.addCategory(StringArray("Unknown", "Init", "WhyNot", "Init", "Lala"));
 	m_presets.loadfromFileAllUserPresets();
-    m_presets.addCategory(StringArray("Unknown", "Init", "WhyNot", "Init"));
     // m_presets.addCategory(JadeSynthCategories);
     
 
