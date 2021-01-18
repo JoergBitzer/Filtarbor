@@ -129,14 +129,9 @@ FilarborAudioProcessor::FilarborAudioProcessor()
     
 	m_presets.setAudioValueTreeState(m_parameterVTS.get());
     m_presets.DeployFactoryPresets();
-    m_presets.addCategory(StringArray("Unknown", "Init", "WhyNot", "Init", "Lala"));
-	m_presets.loadfromFileAllUserPresets();
+    // m_presets.addCategory(StringArray("Unknown", "Init", "WhyNot", "Init", "Lala"));
     // m_presets.addCategory(JadeSynthCategories);
-    
-
-    //m_presets.addCategory("Unknown");
-    //m_presets.addCategory("Init");
-    //m_presets.addCategory("WhyNot");
+	m_presets.loadfromFileAllUserPresets();
 
 }
 
