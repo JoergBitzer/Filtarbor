@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FiltarborVTS presetname="Take the edge" category="Unknown" version="0.1.0"
+              bank="User">
+  <PARAM id="hpcutoff" value="7.667224884033203"/>
+  <PARAM id="hporder" value="0.0"/>
+  <PARAM id="lpcutoff" value="9.175054550170898"/>
+  <PARAM id="lporder" value="1.266763925552368"/>
+</FiltarborVTS>

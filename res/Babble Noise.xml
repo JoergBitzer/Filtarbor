@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FiltarborVTS presetname="Babble Noise" category="Unknown" version="0.1.0"
+              bank="User">
+  <PARAM id="hpcutoff" value="5.695447444915771"/>
+  <PARAM id="hporder" value="2.299999952316284"/>
+  <PARAM id="lpcutoff" value="6.924908638000488"/>
+  <PARAM id="lporder" value="1.557008028030396"/>
+</FiltarborVTS>
