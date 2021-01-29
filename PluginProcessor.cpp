@@ -301,26 +301,25 @@ bool FilarborAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* FilarborAudioProcessor::createEditor()
 {
-    return new FilarborAudioProcessorEditor (*this, *m_parameterVTS, m_presets);
+    return new FilarborAudioProcessorEditor (*this);
 }
 
 //==============================================================================
 void FilarborAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    ignoreUnused(destData);
+	auto state = m_parameterVTS->copyState();
+	std::unique_ptr<XmlElement> xml(state.createXml());
+	copyXmlToBinary(*xml, destData);
 
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
 }
 
 void FilarborAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    ignoreUnused(data);
-    ignoreUnused(sizeInBytes);
-    
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+ 	std::unique_ptr<XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+
+	if (xmlState.get() != nullptr)
+		if (xmlState->hasTagName(m_parameterVTS->state.getType()))
+			m_parameterVTS->replaceState(ValueTree::fromXml(*xmlState));
 }
 
 void FilarborAudioProcessor::computeLowpass()

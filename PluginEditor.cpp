@@ -13,8 +13,8 @@
 #include "Parameter.h"
 
 //==============================================================================
-FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcessor& p, AudioProcessorValueTreeState& vts, PresetHandler &ph)
-    : AudioProcessorEditor (&p), m_processor (p), m_paramVTS(vts), m_presetGUI(ph)
+FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcessor& p)
+    : AudioProcessorEditor (&p), m_processor (p), m_presetGUI(p.m_presets)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
@@ -40,7 +40,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
     m_cutoffLpSlider.setComponentID(paramLpCutoff.ID);
     m_cutoffLpSlider.addListener(this);
     m_cutoffLpSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxAbove, true, 80, 20);
-    m_cutoffLpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramLpCutoff.ID, m_cutoffLpSlider);
+    m_cutoffLpAttachment = std::make_unique<SliderAttachment>(*m_processor.m_parameterVTS, paramLpCutoff.ID, m_cutoffLpSlider);
     addAndMakeVisible(m_cutoffLpSlider);
    	
     m_cutoffLpSlider.setValue(paramLpCutoff.defaultValue);
@@ -49,7 +49,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
     m_orderLpSlider.addListener(this);
     m_orderLpSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     m_orderLpSlider.setTextBoxStyle(Slider::TextEntryBoxPosition::TextBoxBelow, true, 40, 20);
-    m_orderLpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramLpOrder.ID, m_orderLpSlider);
+    m_orderLpAttachment = std::make_unique<SliderAttachment>(*m_processor.m_parameterVTS, paramLpOrder.ID, m_orderLpSlider);
     
     addAndMakeVisible(m_orderLpSlider);
     m_orderLpSlider.setValue(paramLpOrder.defaultValue);
@@ -64,7 +64,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
  
     m_cutoffHpSlider.setComponentID(paramHpCutoff.ID);
     m_cutoffHpSlider.addListener(this);
-    m_cutoffHpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramHpCutoff.ID, m_cutoffHpSlider);
+    m_cutoffHpAttachment = std::make_unique<SliderAttachment>(*m_processor.m_parameterVTS, paramHpCutoff.ID, m_cutoffHpSlider);
     m_cutoffHpSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 80, 20);
     m_cutoffHpSlider.setValue(paramHpCutoff.defaultValue);
     addAndMakeVisible(m_cutoffHpSlider);
@@ -75,7 +75,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
     m_orderHpSlider.setSliderStyle(Slider::SliderStyle::Rotary);
     m_orderHpSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 40, 20);
     m_orderHpSlider.setValue(paramHpOrder.defaultValue);
-    m_orderHpAttachment = std::make_unique<SliderAttachment>(m_paramVTS, paramHpOrder.ID, m_orderHpSlider);
+    m_orderHpAttachment = std::make_unique<SliderAttachment>(*m_processor.m_parameterVTS, paramHpOrder.ID, m_orderHpSlider);
     addAndMakeVisible(m_orderHpSlider);
     //*/
     }

@@ -21,6 +21,7 @@ project(FILTARBOR VERSION 0.1.0)
 #    `kAudioUnitType_MusicDevice`, `kAudioUnitType_MusicEffect`, `kAudioUnitType_OfflineEffect`,
 #    `kAudioUnitType_Output`, `kAudioUnitType_Panner`
 
+add_compile_definitions(FACTORY_PRESETS) # use this if you have finally some presets to add
 
 
 

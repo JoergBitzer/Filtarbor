@@ -22,7 +22,7 @@ typedef AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 class FilarborAudioProcessorEditor  : public AudioProcessorEditor, private Slider::Listener
 {
 public:
-    FilarborAudioProcessorEditor (FilarborAudioProcessor&, AudioProcessorValueTreeState&, PresetHandler & );
+    FilarborAudioProcessorEditor (FilarborAudioProcessor&);
     ~FilarborAudioProcessorEditor();
 
     //==============================================================================
@@ -35,7 +35,6 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     FilarborAudioProcessor& m_processor;
-    AudioProcessorValueTreeState& m_paramVTS;
 
     // Lowpass
     Label m_cutoffLpLabel;

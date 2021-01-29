@@ -23,6 +23,7 @@
 class FilarborAudioProcessor  : public AudioProcessor
 {
 public:
+    friend class FilarborAudioProcessorEditor;
     //==============================================================================
     FilarborAudioProcessor();
     ~FilarborAudioProcessor();
