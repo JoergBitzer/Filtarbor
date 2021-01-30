@@ -21,10 +21,10 @@ const float g_guiratio = float(MIN_GUISIZE_Y)/MIN_GUISIZE_X;
 FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcessor& p)
     : AudioProcessorEditor (&p), m_processor (p), m_presetGUI(p.m_presets)
 {
-    
-    setResizeLimits (MIN_GUISIZE_X, MIN_GUISIZE_Y, MAX_GUISIZE_X, MAX_GUISIZE_X*g_guiratio);
 
-    setSize (MIN_GUISIZE_X, MIN_GUISIZE_Y);
+    setResizeLimits (MIN_GUISIZE_X,MIN_GUISIZE_X*g_guiratio , MAX_GUISIZE_X, MAX_GUISIZE_X*g_guiratio);
+    getConstrainer()->setFixedAspectRatio(1./g_guiratio);
+    setSize (MIN_GUISIZE_X, MIN_GUISIZE_X*g_guiratio);
 
     
     // Make sure that before the constructor has finished, you've set the
@@ -112,6 +112,7 @@ void FilarborAudioProcessorEditor::resized()
      // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     int height = getHeight();
+    // necessary to change fontsize of comboboxes and PopUpmenus
     m_jadeLAF.setFontSize(0.5*height*PRESETHANDLER_HEIGHT/MIN_GUISIZE_Y);
 
     m_presetGUI.setBounds(0, 0, getWidth(), height*PRESETHANDLER_HEIGHT/MIN_GUISIZE_Y);
