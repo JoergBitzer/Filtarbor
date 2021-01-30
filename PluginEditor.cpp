@@ -12,13 +12,24 @@
 #include "PluginEditor.h"
 #include "Parameter.h"
 
+#define MIN_GUISIZE_X 500
+#define MIN_GUISIZE_Y 160
+#define MAX_GUISIZE_X 1400
+const float g_guiratio = float(MIN_GUISIZE_Y)/MIN_GUISIZE_X;
+
 //==============================================================================
 FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcessor& p)
     : AudioProcessorEditor (&p), m_processor (p), m_presetGUI(p.m_presets)
 {
+    
+    //setResizeLimits (MIN_GUISIZE_X, MIN_GUISIZE_Y, MAX_GUISIZE_X, MAX_GUISIZE_X*g_guiratio);
+
+    setSize (MIN_GUISIZE_X, MIN_GUISIZE_Y);
+
+    
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (500, 160);
+    // setSize (500, 160);
 	
     //m_presetGUI.setNoCategory();
 	addAndMakeVisible(m_presetGUI);
@@ -98,7 +109,7 @@ void FilarborAudioProcessorEditor::paint (Graphics& g)
 #define PRESETHANDLER_HEIGHT 30
 void FilarborAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
+     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     m_presetGUI.setBounds(0, 0, getWidth(), PRESETHANDLER_HEIGHT);
     auto r = getLocalBounds();

@@ -5,4 +5,5 @@
   <PARAM id="hporder" value="0.0"/>
   <PARAM id="lpcutoff" value="4.605170249938965"/>
   <PARAM id="lporder" value="1.009504914283752"/>
+  <uiState width="500" height="160"/>
 </FiltarborVTS>
