@@ -22,7 +22,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
     : AudioProcessorEditor (&p), m_processor (p), m_presetGUI(p.m_presets)
 {
     
-    //setResizeLimits (MIN_GUISIZE_X, MIN_GUISIZE_Y, MAX_GUISIZE_X, MAX_GUISIZE_X*g_guiratio);
+    setResizeLimits (MIN_GUISIZE_X, MIN_GUISIZE_Y, MAX_GUISIZE_X, MAX_GUISIZE_X*g_guiratio);
 
     setSize (MIN_GUISIZE_X, MIN_GUISIZE_Y);
 
@@ -111,9 +111,12 @@ void FilarborAudioProcessorEditor::resized()
 {
      // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    m_presetGUI.setBounds(0, 0, getWidth(), PRESETHANDLER_HEIGHT);
+    int height = getHeight();
+    m_jadeLAF.setFontSize(0.5*height*PRESETHANDLER_HEIGHT/MIN_GUISIZE_Y);
+
+    m_presetGUI.setBounds(0, 0, getWidth(), height*PRESETHANDLER_HEIGHT/MIN_GUISIZE_Y);
     auto r = getLocalBounds();
-    r.removeFromTop(PRESETHANDLER_HEIGHT);    
+    r.removeFromTop(height*PRESETHANDLER_HEIGHT/MIN_GUISIZE_Y);    
     auto lowpassRect = r;
     m_cutoffLpLabel.setBounds(lowpassRect.removeFromLeft(GUI_LABEL_WIDTH).removeFromTop(GUI_LABEL_HEIGHT));
     lowpassRect.setWidth(r.getWidth() - 2 * GUI_LABEL_WIDTH - GUI_ELEMENT_DISTANCE);

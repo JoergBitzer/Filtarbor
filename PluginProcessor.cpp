@@ -128,7 +128,7 @@ FilarborAudioProcessor::FilarborAudioProcessor()
         AudioProcessorValueTreeState::ParameterLayout(m_paramVector.begin(), m_paramVector.end()));
 
 	m_presets.setAudioValueTreeState(m_parameterVTS.get());
-    // m_presets.DeployFactoryPresets();
+    m_presets.DeployFactoryPresets();
     // m_presets.addCategory(StringArray("Unknown", "Init", "WhyNot", "Init", "Lala"));
     // m_presets.addCategory(JadeSynthCategories);
 	m_presets.loadfromFileAllUserPresets();
