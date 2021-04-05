@@ -23,6 +23,7 @@ FilarborAudioProcessorEditor::FilarborAudioProcessorEditor (FilarborAudioProcess
 {
 
     setResizeLimits (MIN_GUISIZE_X,MIN_GUISIZE_X*g_guiratio , MAX_GUISIZE_X, MAX_GUISIZE_X*g_guiratio);
+    setResizable(true,true);
     getConstrainer()->setFixedAspectRatio(1./g_guiratio);
     setSize (MIN_GUISIZE_X, MIN_GUISIZE_X*g_guiratio);
 
